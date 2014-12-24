@@ -21,6 +21,55 @@ namespace PD2Bundle
 
         static void Main(string[] args)
         {
+            if (args.Length < 2)
+            {
+                PrintHelpText();
+
+                return;
+            }
+
+            string bundleFile = args[0];
+            string outputDir = args[1];
+
+            if (!File.Exists(bundleFile))
+            {
+                Console.WriteLine("Bundle file \"" + bundleFile + "\" does not exist.");
+
+                return;
+            }
+
+            string bundleFileDir = Path.GetFileNameWithoutExtension(bundleFile);
+            string bundleFileName = Path.GetDirectoryName(bundleFile);
+            string bundleHeaderFile = Path.Combine(bundleFileDir, bundleFileName + "_h.bundle");
+
+            if (!File.Exists(bundleHeaderFile))
+            {
+                Console.WriteLine("Bundle header file \"" + bundleHeaderFile + "\" does not exist.");
+
+                return;
+            }
+
+            if (!Directory.Exists(outputDir))
+            {
+                try
+                {
+                    Directory.CreateDirectory(outputDir);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Error creating directory \"" + outputDir + "\": " + ex.GetType().ToString());
+
+                    return;
+                }
+            }
+
+            using (FileStream bundleStream = File.OpenRead(bundleFile))
+            {
+                ExtractBundle(bundleStream, outputDir);
+            }
+
+            return;
+
             foreach (string arg in args)
             {
                 switch (arg)
@@ -366,5 +415,19 @@ namespace PD2Bundle
             return false;
         }
 
+        //----------------
+
+        private static void PrintHelpText()
+        {
+            Console.WriteLine("Usage: p2bundle.exe bundlefile outputdir [options]");
+            Console.WriteLine("Options: ");
+            Console.WriteLine("-extract:\t\tExtracts bundle file (default option if none are specified).");
+            Console.WriteLine("-help:\t\tDisplays this help text.");
+            Console.WriteLine("-update:\t\tGenerates extension and file path lists.");
+        }
+
+        private static void ExtractBundle(Stream bundleStream, string outputDir)
+        {
+        }
     }
 }
