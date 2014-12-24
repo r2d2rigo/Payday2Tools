@@ -167,19 +167,19 @@ namespace PD2Bundle
                 NameEntry ne = name_index.Id2Name(be.id);
                 if (ne != null)
                 {
-                    string name = known_index.GetPath(ne.path);
-                    string extension = known_index.GetExtension(ne.extension);
+                    string name = known_index.GetPath(ne.Path);
+                    string extension = known_index.GetExtension(ne.Extension);
                     if (name != null)
                     {
                         path = name;
                     }
                     else
                     {
-                        path = String.Format("{0:x}", ne.path);
+                        path = String.Format("{0:x}", ne.Path);
                     }
-                    if (ne.language != 0)
+                    if (ne.Language != 0)
                     {
-                        path += String.Format(".{0:x}", ne.language);
+                        path += String.Format(".{0:x}", ne.Language);
                     }
                     if (extension != null)
                     {
@@ -187,11 +187,11 @@ namespace PD2Bundle
                     }
                     else
                     {
-                        path += String.Format(".{0:x}", ne.extension);
+                        path += String.Format(".{0:x}", ne.Extension);
                     }
                 }
                 if (!update)
-                    Console.WriteLine("{0:x} - {1}", ne.path, path);
+                    Console.WriteLine("{0:x} - {1}", ne.Path, path);
             }
         }
 
@@ -219,8 +219,8 @@ namespace PD2Bundle
                         NameEntry ne = name_index.Id2Name(be.id);
                         if (ne != null)
                         {
-                            string name = known_index.GetPath(ne.path);
-                            string extension = known_index.GetExtension(ne.extension);
+                            string name = known_index.GetPath(ne.Path);
+                            string extension = known_index.GetExtension(ne.Extension);
                             if (!extract_all)
                             {
                                 switch (extension)
@@ -239,11 +239,11 @@ namespace PD2Bundle
                             }
                             else
                             {
-                                path = String.Format("{0:x}", ne.path);
+                                path = String.Format("{0:x}", ne.Path);
                             }
-                            if (ne.language != 0)
+                            if (ne.Language != 0)
                             {
-                                path += String.Format(".{0:x}", ne.language);
+                                path += String.Format(".{0:x}", ne.Language);
                             }
                             if (extension != null)
                             {
@@ -251,7 +251,7 @@ namespace PD2Bundle
                             }
                             else
                             {
-                                path += String.Format(".{0:x}", ne.extension);
+                                path += String.Format(".{0:x}", ne.Extension);
                             }
                         }
                         string folder = Path.GetDirectoryName(path);
@@ -337,8 +337,8 @@ namespace PD2Bundle
                         NameEntry ne = name_index.Id2Name(be.id);
                         if (ne != null)
                         {
-                            string name = known_index.GetPath(ne.path);
-                            string extension = known_index.GetExtension(ne.extension);
+                            string name = known_index.GetPath(ne.Path);
+                            string extension = known_index.GetExtension(ne.Extension);
 
                             if (name != null)
                             {
@@ -346,7 +346,7 @@ namespace PD2Bundle
                             }
                             else
                             {
-                                path = String.Format("{0:x}", ne.path);
+                                path = String.Format("{0:x}", ne.Path);
                             }
                         }
 

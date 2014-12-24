@@ -10,7 +10,7 @@ namespace PD2Bundle
 
         public void Add(ulong extension, ulong path, uint language, uint id)
         {
-            NameEntry b = new NameEntry { extension = extension, path = path, language = language };
+            NameEntry b = new NameEntry(path, extension, language);
             id2name[id] = b;
         }
 

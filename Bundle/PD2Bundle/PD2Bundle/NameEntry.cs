@@ -7,12 +7,20 @@ namespace PD2Bundle
 {
     class NameEntry
     {
-        public ulong path;
-        public ulong extension;
-        public uint language;
+        public UInt64 Path { get; private set; }
+        public UInt64 Extension { get; private set; }
+        public UInt32 Language { get; private set; }
+
+        public NameEntry(UInt64 path, UInt64 extension, UInt32 language)
+        {
+            this.Path = path;
+            this.Extension = extension;
+            this.Language = language;
+        }
+
         public override string ToString()
         {
-            return path.ToString("x") + '.' + language.ToString("x") + '.' + extension.ToString("x");
+            return this.Path.ToString("x") + '.' + this.Language.ToString("x") + '.' + this.Extension.ToString("x");
         }
-    };
+    }
 }
