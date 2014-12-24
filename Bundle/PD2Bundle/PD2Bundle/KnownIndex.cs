@@ -8,7 +8,7 @@ namespace PD2Bundle
 {
     class Hash64
     {
-        public static unsafe ulong HashStringManaged(string input, ulong level = 0)
+        public static unsafe ulong HashString(string input, ulong level = 0)
         {
             fixed (byte* data = UTF8Encoding.UTF8.GetBytes(input))
             {
