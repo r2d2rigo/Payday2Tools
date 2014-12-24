@@ -68,8 +68,8 @@ namespace PD2Bundle
 
             if (extract_one && extract_id.Length > 0)
             {
-                bundle = new BundleHeader();
-                if (!bundle.Load(extract_id))
+                bundle = BundleHeader.Load(extract_id);
+                if (bundle == null)
                 {
                     Console.WriteLine("Failed to parse bundle header.");
                     return;
@@ -89,9 +89,9 @@ namespace PD2Bundle
                 {
                     string bundle_id = file.Replace("_h.bundle", "");
                     bundle_id = bundle_id.Remove(0, 2);
-                    bundle = new BundleHeader();
+                    bundle = BundleHeader.Load(bundle_id);
                     Console.WriteLine("Loading bundle header...");
-                    if (!bundle.Load(bundle_id))
+                    if (bundle == null)
                     {
                         Console.WriteLine("Failed to parse bundle header.");
                         return;
@@ -264,8 +264,8 @@ namespace PD2Bundle
 
             Console.WriteLine("Updating Paths and Extensions...");
 
-            bundle = new BundleHeader();
-            if (!bundle.Load(bundle_id))
+            bundle = BundleHeader.Load(bundle_id);
+            if (bundle == null)
             {
                 Console.WriteLine("[Update error] Failed to parse bundle header. ({0})", bundle_id);
                 return false;
@@ -340,8 +340,8 @@ namespace PD2Bundle
                             {
                                 string bundle_id_list = file.Replace("_h.bundle", "");
                                 bundle_id_list = bundle_id_list.Remove(0, 2);
-                                bundle = new BundleHeader();
-                                if (!bundle.Load(bundle_id_list))
+                                bundle = BundleHeader.Load(bundle_id_list);
+                                if (bundle == null)
                                 {
                                     Console.WriteLine("[Update error] Failed to parse bundle header. ({0})", bundle_id_list);
                                     return false;

@@ -6,14 +6,22 @@ namespace PD2Bundle
 {
     class BundleHeader
     {
-        public List<BundleEntry> Entries = new List<BundleEntry>();
-        public bool Load(string bundle_id)
+        public List<BundleEntry> Entries { get; private set; }
+
+        public BundleHeader()
         {
+            this.Entries = new List<BundleEntry>();
+        }
+
+        public static BundleHeader Load(string bundle_id)
+        {
+            BundleHeader loadedHeader = new BundleHeader();
             string header = bundle_id + "_h.bundle";
+
             if(!File.Exists(header))
             {
                 Console.WriteLine("Bundle header file does not exist.");
-                return false;
+                return null;
             }
             try
             {
@@ -41,10 +49,11 @@ namespace PD2Bundle
                             {
                                 be.length = br.ReadInt32();
                             }
-                            this.Entries.Add(be);
+
+                            loadedHeader.Entries.Add(be);
                             if (!has_length && i > 0)
                             {
-                                BundleEntry pbe = this.Entries[i - 1];
+                                BundleEntry pbe = loadedHeader.Entries[i - 1];
                                 pbe.length = (int)be.address - (int)pbe.address;
                             }
                         }
@@ -52,14 +61,15 @@ namespace PD2Bundle
                 }
                 if (item_count > 0 && !has_length)
                 {
-                    Entries[Entries.Count - 1].length = -1;
+                    loadedHeader.Entries[loadedHeader.Entries.Count - 1].length = -1;
                 }
             }
             catch (Exception)
             {
-                return false;
+                return null;
             }
-            return true;
+
+            return loadedHeader;
         }
     }
 }
