@@ -2,6 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.IO;
 
 namespace Hash64Managed.Test
 {
@@ -42,6 +43,25 @@ namespace Hash64Managed.Test
             ulong managedResult = HashStringManaged(testString);
 
             Assert.AreEqual(nativeResult, managedResult);
+        }
+
+        [TestMethod]
+        public void RandomStrings()
+        {
+            using (var fileStream = File.OpenRead("randomstrings.txt"))
+            {
+                using (var streamReader = new StreamReader(fileStream))
+                {
+                    while (!streamReader.EndOfStream)
+                    {
+                        string testString = streamReader.ReadLine();
+                        ulong nativeResult = HashStringNative(testString);
+                        ulong managedResult = HashStringManaged(testString);
+
+                        Assert.AreEqual(nativeResult, managedResult);
+                    }
+                }
+            }
         }
     }
 }
