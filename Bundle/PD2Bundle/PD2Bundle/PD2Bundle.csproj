@@ -44,8 +44,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BundleEntry.cs" />
     <Compile Include="BundleHeader.cs" />
+    <Compile Include="Hash64.cs" />
     <Compile Include="KnownIndex.cs" />
+    <Compile Include="NameEntry.cs" />
     <Compile Include="NameIndex.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
