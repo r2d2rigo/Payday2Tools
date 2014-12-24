@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.31101.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hash64Managed", "Hash64Managed\Hash64Managed.csproj", "{45D65B65-B332-4B19-A938-CDC59C32A2EC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hash64Managed.Tests", "Hash64Managed.Tests\Hash64Managed.Tests.csproj", "{0C8EBACF-DC7A-45CD-98B4-10F498967948}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{45D65B65-B332-4B19-A938-CDC59C32A2EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{45D65B65-B332-4B19-A938-CDC59C32A2EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{45D65B65-B332-4B19-A938-CDC59C32A2EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{45D65B65-B332-4B19-A938-CDC59C32A2EC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0C8EBACF-DC7A-45CD-98B4-10F498967948}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0C8EBACF-DC7A-45CD-98B4-10F498967948}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0C8EBACF-DC7A-45CD-98B4-10F498967948}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0C8EBACF-DC7A-45CD-98B4-10F498967948}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
