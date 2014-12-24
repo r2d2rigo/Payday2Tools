@@ -8,11 +8,12 @@ namespace PD2Bundle
 {
     class Hash64
     {
-        [DllImport("hash64.dll", CallingConvention = CallingConvention.Cdecl)]
-        public static extern ulong Hash(byte[] k, ulong length, ulong level);
-        public static ulong HashString(string input, ulong level = 0)
+        public static unsafe ulong HashStringManaged(string input, ulong level = 0)
         {
-            return Hash(UTF8Encoding.UTF8.GetBytes(input), (ulong)UTF8Encoding.UTF8.GetByteCount(input), level);
+            fixed (byte* data = UTF8Encoding.UTF8.GetBytes(input))
+            {
+                return Hash64Managed.Hash64.Hash(data, (ulong)UTF8Encoding.UTF8.GetByteCount(input), level);
+            }
         }
     }
 
