@@ -42,26 +42,29 @@ namespace PD2Bundle
                         }
                         for (int i = 0; i < item_count; ++i)
                         {
-                            BundleEntry be = new BundleEntry();
-                            be.id = br.ReadUInt32();
-                            be.address = br.ReadUInt32();
+                            UInt32 id = br.ReadUInt32();
+                            UInt32 address = br.ReadUInt32();
+                            Int32 length = 0;
+
                             if (has_length)
                             {
-                                be.length = br.ReadInt32();
+                                length = br.ReadInt32();
                             }
+
+                            BundleEntry be = new BundleEntry(id, address, length);
 
                             loadedHeader.Entries.Add(be);
                             if (!has_length && i > 0)
                             {
                                 BundleEntry pbe = loadedHeader.Entries[i - 1];
-                                pbe.length = (int)be.address - (int)pbe.address;
+                                pbe.Length = (int)be.Address - (int)pbe.Address;
                             }
                         }
                     }
                 }
                 if (item_count > 0 && !has_length)
                 {
-                    loadedHeader.Entries[loadedHeader.Entries.Count - 1].length = -1;
+                    loadedHeader.Entries[loadedHeader.Entries.Count - 1].Length = -1;
                 }
             }
             catch (Exception)

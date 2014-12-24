@@ -163,8 +163,8 @@ namespace PD2Bundle
         {
             foreach (BundleEntry be in bundle.Entries)
             {
-                string path = String.Format("unknown_{0:x}.bin", be.id);
-                NameEntry ne = name_index.Id2Name(be.id);
+                string path = String.Format("unknown_{0:x}.bin", be.Id);
+                NameEntry ne = name_index.Id2Name(be.Id);
                 if (ne != null)
                 {
                     string name = known_index.GetPath(ne.Path);
@@ -215,8 +215,8 @@ namespace PD2Bundle
                     byte[] data;
                     foreach (BundleEntry be in bundle.Entries)
                     {
-                        string path = String.Format("unknown_{0:x}.bin", be.id);
-                        NameEntry ne = name_index.Id2Name(be.id);
+                        string path = String.Format("unknown_{0:x}.bin", be.Id);
+                        NameEntry ne = name_index.Id2Name(be.Id);
                         if (ne != null)
                         {
                             string name = known_index.GetPath(ne.Path);
@@ -266,15 +266,15 @@ namespace PD2Bundle
                         {
                             using (BinaryWriter obr = new BinaryWriter(os))
                             {
-                                fs.Position = be.address;
-                                if (be.length == -1)
+                                fs.Position = be.Address;
+                                if (be.Length == -1)
                                 {
                                     data = br.ReadBytes((int)(fs.Length - fs.Position));
                                     obr.Write(data);
                                 }
                                 else
                                 {
-                                    data = br.ReadBytes((int)be.length);
+                                    data = br.ReadBytes((int)be.Length);
                                     obr.Write(data);
                                 }
                             }
@@ -333,8 +333,8 @@ namespace PD2Bundle
                     byte[] data;
                     foreach (BundleEntry be in bundle.Entries)
                     {
-                        string path = String.Format("unknown_{0:x}.bin", be.id);
-                        NameEntry ne = name_index.Id2Name(be.id);
+                        string path = String.Format("unknown_{0:x}.bin", be.Id);
+                        NameEntry ne = name_index.Id2Name(be.Id);
                         if (ne != null)
                         {
                             string name = known_index.GetPath(ne.Path);
@@ -353,14 +353,14 @@ namespace PD2Bundle
 
                         if (path.Contains("idstring_lookup"))
                         {
-                            fs.Position = be.address;
-                            if (be.length == -1)
+                            fs.Position = be.Address;
+                            if (be.Length == -1)
                             {
                                 data = br.ReadBytes((int)(fs.Length - fs.Position));
                             }
                             else
                             {
-                                data = br.ReadBytes((int)be.length);
+                                data = br.ReadBytes((int)be.Length);
                             }
 
                             foreach (byte read in data)
