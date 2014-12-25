@@ -17,20 +17,12 @@ namespace Hash64Managed.Test
             return Hash(UTF8Encoding.UTF8.GetBytes(input), (ulong)UTF8Encoding.UTF8.GetByteCount(input), level);
         }
 
-        public static unsafe ulong HashStringManaged(string input, ulong level = 0)
-        {
-            fixed (byte* data = UTF8Encoding.UTF8.GetBytes(input))
-            {
-                return Hash64.Hash(data , (ulong)UTF8Encoding.UTF8.GetByteCount(input), level);
-            }
-        }
-
         [TestMethod]
         public void EmptyString()
         {
             string testString = string.Empty;
             ulong nativeResult = HashStringNative(testString);
-            ulong managedResult = HashStringManaged(testString);
+            ulong managedResult = Hash64.HashString(testString);
 
             Assert.AreEqual(nativeResult, managedResult);
         }
@@ -40,7 +32,7 @@ namespace Hash64Managed.Test
         {
             string testString = "Hello, World!";
             ulong nativeResult = HashStringNative(testString);
-            ulong managedResult = HashStringManaged(testString);
+            ulong managedResult = Hash64.HashString(testString);
 
             Assert.AreEqual(nativeResult, managedResult);
         }
@@ -56,7 +48,7 @@ namespace Hash64Managed.Test
                     {
                         string testString = streamReader.ReadLine();
                         ulong nativeResult = HashStringNative(testString);
-                        ulong managedResult = HashStringManaged(testString);
+                        ulong managedResult = Hash64.HashString(testString);
 
                         Assert.AreEqual(nativeResult, managedResult);
                     }

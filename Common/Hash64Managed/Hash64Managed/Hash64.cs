@@ -7,7 +7,27 @@ namespace Hash64Managed
 {
     public static class Hash64
     {
-        public static unsafe UInt64 Hash(Byte* data, UInt64 dataSize, UInt64 level)
+        public static UInt64 HashString(string input, UInt64 level = 0)
+        {
+            Byte[] data = UTF8Encoding.UTF8.GetBytes(input);
+
+            return HashByteArray(data, level);
+        }
+
+        public static unsafe UInt64 HashByteArray(Byte[] data, UInt64 level = 0)
+        {
+            if (data == null || data.Length == 0)
+            {
+                return HashData(null, 0, level);
+            }
+
+            fixed (Byte* dataPointer = &data[0])
+            {
+                return HashData(dataPointer, (UInt64)data.Length, level);
+            }
+        }
+
+        private static unsafe UInt64 HashData(Byte* data, UInt64 dataSize, UInt64 level)
         {
             UInt64 length = dataSize;
             UInt64 a = level;
