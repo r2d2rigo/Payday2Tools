@@ -39,7 +39,7 @@ namespace BundleLib
                     {
                         UInt32 id = headerReader.ReadUInt32();
                         UInt32 address = headerReader.ReadUInt32();
-                        Int32 length = 0;
+                        Int32 length = -1;
 
                         if (hasEntryLength)
                         {
@@ -47,12 +47,7 @@ namespace BundleLib
                         }
                         else
                         {
-                            if (i == (bundleEntryCount - 1))
-                            {
-                                // TODO: check that this is a valid value.
-                                length = -1;
-                            }
-                            else if (i > 0)
+                            if (i > 0)
                             {
                                 BundleEntry previousEntry = loadedHeader.Entries[i - 1];
                                 previousEntry.Length = (Int32)(address - previousEntry.Address);
