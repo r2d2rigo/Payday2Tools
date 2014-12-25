@@ -10,7 +10,6 @@ namespace PD2Bundle
     {
         static private NameIndex name_index = new NameIndex();
         static private KnownIndex known_index = new KnownIndex();
-        static private BundleHeader bundle = new BundleHeader();
         static private bool list_only = false;
         static private bool extract_one = false;
         static private string extract_id = "";
@@ -38,8 +37,8 @@ namespace PD2Bundle
                 return;
             }
 
-            string bundleFileDir = Path.GetFileNameWithoutExtension(bundleFile);
-            string bundleFileName = Path.GetDirectoryName(bundleFile);
+            string bundleFileDir = Path.GetDirectoryName(bundleFile);
+            string bundleFileName = Path.GetFileNameWithoutExtension(bundleFile);
             string bundleHeaderFile = Path.Combine(bundleFileDir, bundleFileName + "_h.bundle");
 
             if (!File.Exists(bundleHeaderFile))
@@ -63,6 +62,11 @@ namespace PD2Bundle
                 }
             }
 
+            using (FileStream bundleHeaderStream = File.OpenRead(bundleHeaderFile))
+            {
+                ListBundleContents(bundleHeaderStream, outputDir);
+            }
+
             using (FileStream bundleStream = File.OpenRead(bundleFile))
             {
                 ExtractBundle(bundleStream, outputDir);
@@ -70,6 +74,7 @@ namespace PD2Bundle
 
             return;
 
+            /*
             foreach (string arg in args)
             {
                 switch (arg)
@@ -157,8 +162,10 @@ namespace PD2Bundle
                     }
                 }
             }
+            */
         }
 
+        /*
         static void ListBundle(string bundle_id)
         {
             foreach (BundleEntry be in bundle.Entries)
@@ -414,6 +421,7 @@ namespace PD2Bundle
 
             return false;
         }
+        */
 
         //----------------
 
@@ -428,6 +436,42 @@ namespace PD2Bundle
 
         private static void ExtractBundle(Stream bundleStream, string outputDir)
         {
+        }
+
+        private static void ListBundleContents(Stream bundleHeaderStream, string outputDir)
+        {
+            BundleHeader bundleHeader = BundleHeader.Load(bundleHeaderStream);
+
+            foreach (BundleEntry be in bundleHeader.Entries)
+            {
+                string path = String.Format("unknown_{0:x}.bin", be.Id);
+                NameEntry ne = name_index.Id2Name(be.Id);
+                if (ne != null)
+                {
+                    string name = known_index.GetPath(ne.Path);
+                    string extension = known_index.GetExtension(ne.Extension);
+                    if (name != null)
+                    {
+                        path = name;
+                    }
+                    else
+                    {
+                        path = String.Format("{0:x}", ne.Path);
+                    }
+                    if (ne.Language != 0)
+                    {
+                        path += String.Format(".{0:x}", ne.Language);
+                    }
+                    if (extension != null)
+                    {
+                        path += String.Format(".{0}", extension);
+                    }
+                    else
+                    {
+                        path += String.Format(".{0:x}", ne.Extension);
+                    }
+                }
+            }
         }
     }
 }
